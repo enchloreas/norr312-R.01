@@ -1,0 +1,8 @@
+{
+  "name": "Remix no.rr312",
+  "description": "NO.RR 312 independent label for breaking a systems.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

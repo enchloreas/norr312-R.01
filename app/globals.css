@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+@theme {
+  /* Industrial Concrete & Titanium Palette */
+  --color-bg: #111215;
+  --color-bg-soft: #18191e;
+  --color-surface: #1e2027;
+  --color-line: #2b2e38;
+  --color-line-gold: #c8a265;
+  --color-ink: #f0f2f5;
+  --color-muted: #8e94a0;
+  --color-accent-amber: #d4af37;
+
+  /* Type families */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    color-scheme: dark;
+    background-color: #111215;
+  }
+
+  body {
+    background-color: #111215;
+    color: var(--color-ink);
+    font-family: var(--font-mono);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+    user-select: none;
+  }
+
+  ::selection {
+    background-color: rgba(200, 162, 101, 0.3);
+    color: #ffffff;
+  }
+
+  /* Accessible focus ring */
+  :focus-visible {
+    outline: 1px solid #c8a265;
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  .font-industrial {
+    font-family: var(--font-mono);
+    letter-spacing: 0.18em;
+  }
+
+  /* Realistic concrete surface background with responsive scaling and vignette */
+  .bg-concrete-surface {
+    background-color: #121317;
+    background-image: 
+      radial-gradient(ellipse 70% 60% at 50% 50%, rgba(62, 67, 78, 0.42) 0%, rgba(24, 26, 32, 0.82) 58%, #0d0e11 100%),
+      radial-gradient(circle at 50% 48%, rgba(200, 162, 101, 0.025) 0%, transparent 60%);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .concrete-noise {
+    position: relative;
+  }
+
+  .concrete-noise::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.045;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    z-index: 1;
+  }
+
+  /* HUD glass panels */
+  .hud-btn {
+    background: rgba(22, 24, 29, 0.72);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    transition: all 0.2s ease;
+  }
+  .hud-btn:hover {
+    background: rgba(35, 38, 46, 0.9);
+    border-color: rgba(255, 255, 255, 0.28);
+    transform: translateY(-1px);
+  }
+  .hud-btn:active {
+    transform: translateY(0);
+  }
+
+  /* Prototype action buttons */
+  .btn-spec-gold {
+    background: rgba(26, 27, 32, 0.85);
+    border: 1px solid #a6894c;
+    color: #e5d2a8;
+    box-shadow: 0 0 14px rgba(200, 162, 101, 0.15);
+  }
+  .btn-spec-gold:hover {
+    background: rgba(45, 42, 35, 0.95);
+    border-color: #d4af37;
+    color: #ffffff;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+  }
+
+  .btn-releases-steel {
+    background: rgba(26, 27, 32, 0.85);
+    border: 1px solid rgba(160, 168, 185, 0.25);
+    color: #a8b0c0;
+  }
+  .btn-releases-steel:hover {
+    background: rgba(36, 38, 48, 0.95);
+    border-color: rgba(200, 210, 230, 0.5);
+    color: #f0f2f8;
+    box-shadow: 0 0 16px rgba(255, 255, 255, 0.08);
+  }
+}
+
