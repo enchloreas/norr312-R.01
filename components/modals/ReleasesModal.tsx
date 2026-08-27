@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X, ArrowUpRight, Box, CheckCircle2, Clock } from "lucide-react";
 
@@ -12,6 +12,15 @@ interface ReleasesModalProps {
 
 export function ReleasesModal({ isOpen, onClose, initialTab = "releases" }: ReleasesModalProps) {
   const [activeTab, setActiveTab] = useState<"releases" | "archive">(initialTab);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
 
   const releases = [
     {

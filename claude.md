@@ -1,222 +1,101 @@
-# Vels Industries — Сайт компании (проектная спецификация)
+# NO.rr 312 — Project Technical Specification & Architecture Dossier
 
-> Этот файл — единый источник правды по проекту. Реализация начинается **только после утверждения** этого документа.
-
----
-
-## 1. О проекте
-
-**Vels Industries** — технологическая IT-компания, которая создаёт и внедряет **автономных AI-агентов** в бизнес.
-
-Цель — современный минималистичный лендинг в **тёмной палитре** (чёрный фон, белый текст) с **главным акцентом на 3D-анимации**. Сайт двуязычный (RU/EN), 6–7 экранов, с шапкой и подвалом.
-
-### Ключевые принципы дизайна
-- Минимализм, много «воздуха», тёмная палитра (чёрный фон, неоновый акцент).
-- Современная типографика (см. §4).
-- 3D — центральный визуальный носитель, а не украшение.
-- Плавные, дорогие анимации; сдержанная, премиальная подача (референс-эстетика: Linear / Vercel / Cohere / Framer).
-- Производительность и доступность (a11y, `prefers-reduced-motion`, мобильные fallback).
+> Single Source of Truth for the **NO.rr 312** independent architectural jewelry engineering application.
 
 ---
 
-## 2. Бренд
+## 1. Project Overview
 
-- **Название:** Vels Industries
-- **Тег-строка:** «Autonomous AI Agents» / «Автономные AI-агенты»
-- **Логотип (придумываю сам):** текстовый вордмарк `VELS` + облегчённое разрядкой `INDUSTRIES`, рядом — минималистичный SVG-знак: абстрактная «частица-агент» (узел с орбитой / стилизованная «V» из двух граней с точкой-нодой). Реализуется как SVG-компонент, монохром + акцентная подсветка.
+**NO.rr 312** is an independent design and engineering label dedicated to titanium and tension-wire kinetic jewelry. The flagship artifact featured in this release is **MOD. R1 V3** (Tension Core Ring).
 
----
-
-## 3. Технологический стек
-
-- **Next.js 15** (App Router) + **React 19** + **TypeScript**
-- **Tailwind CSS v4** (дизайн-токены через CSS-переменные)
-- **3D:** `three`, `@react-three/fiber` (v9, совместима с React 19), `@react-three/drei`
-- **Анимации:** `gsap` (+ ScrollTrigger — для scroll-driven 3D) и `framer-motion` (раскрытие секций/UI)
-- **Форма:** `react-hook-form` + `zod` + `@hookform/resolvers`
-- **Email:** `resend` (через серверный route handler)
-- **Иконки:** `lucide-react`
-- **Шрифты:** `next/font/google`
+### Core Goals & Experience
+- **Interactive 3D Viewport**: Real-time WebGL rendering of the MOD. R1 V3 ring with high-resolution procedural textures (anisotropic lathe brushing, laser engravings, chamfer relief).
+- **Industrial HUD Controls**: Seamless manipulation for 360° orbital drag rotation, macro zoom inspection, exploded schematic layers, and auto-rotation.
+- **Specification & Release Registry**: Interactive modals for detailed engineering blueprints (`BuildSpecModal`), release history and archives (`ReleasesModal`), 5-step metallurgy process dossier (`ProcessModal`), and direct studio inquiry submission (`ContactModal`).
 
 ---
 
-## 4. Дизайн-система
+## 2. Technical Stack
 
-### 4.1 Типографика (выбор за мной)
-- **Заголовки / дисплей:** **Manrope** (600/700/800) — геометричный, современный, полная кириллица.
-- **Основной текст / UI:** **Inter** — нейтральный, читаемый, полная кириллица.
-- **Лейблы, номера секций, бейджи:** **JetBrains Mono** — «технический» акцент (`01 — О нас`, `AI · AUTOMATION`).
-- Hero-заголовок: очень крупный, **жирный (800)**, выключка **чуть левее центра**.
-
-### 4.2 Палитра (тёмная + электрик-фиолетовый)
-| Токен | HEX | Назначение |
-|---|---|---|
-| `--bg` | `#08080B` | основной фон (near-black) |
-| `--bg-soft` | `#101015` | мягкие секции / подвал |
-| `--surface` | `#14151C` | карточки (полупрозрачные) |
-| `--line` | `#262833` | разделители/границы |
-| `--ink` | `#F6F7F9` | основной текст (белый) |
-| `--muted` | `#9AA1AE` | вторичный текст |
-| `--on-accent` | `#FFFFFF` | текст на акцентных кнопках |
-| `--accent` | `#8B5CF6` | электрик-фиолетовый, основной акцент |
-| `--accent-hover` | `#7C3AED` | ховер |
-| `--accent-soft` | `#A78BFA` | мягкий акцент / узлы сети |
-| `--accent-cyan` | `#6366F1` | индиго для свечения 3D |
-| свечение 3D | `#8B5CF6 → #A78BFA` | additive-узлы и линии нейросети |
-
-### 4.3 Сетка и пространство
-- Контейнер: `max-w-[1280px]`, боковые поля `24px` (моб.) → `48px+` (десктоп).
-- Вертикальный ритм секций: `py-24 … py-32`.
-- Радиусы: `12–20px`. Тени мягкие, низкоконтрастные.
-
-### 4.4 Принципы motion
-- Раскрытие секций: лёгкий fade + translateY на входе (Framer Motion, `viewport once`).
-- 3D реагирует на курсор (искажение) и скролл (трансформация объекта по секциям).
-- Уважение `prefers-reduced-motion`: отключение тяжёлых анимаций, статичный кадр 3D.
+- **Framework**: Next.js 15 (App Router, Standalone build output)
+- **UI & Runtime**: React 19 + TypeScript 5.7
+- **3D Engine**: Three.js 0.171 + `@react-three/fiber` v9
+- **Design System**: Tailwind CSS v4 + Custom Industrial Concrete & Titanium color tokens
+- **Animations**: Motion (`motion/react` v13)
+- **Validation**: Zod 3.24 + React Hook Form
+- **Email Service**: Resend 4.1 (with safe local console logging fallback)
+- **Testing**: Playwright Core for automated WebGL headless regression testing
 
 ---
 
-## 5. 3D-концепция (ядро сайта)
+## 3. Design System & Palette
 
-**Концепция (выбор пользователя — вариант B):** **сеть из частиц и линий** — визуализация нейросети / AI-агентов.
+### Industrial Palette Tokens (`app/globals.css`)
+- `--color-bg`: `#111215` (Obsidian concrete base)
+- `--color-bg-soft`: `#18191e` (Muted surface tone)
+- `--color-surface`: `#1e2027` (Modal panels and floating HUD containers)
+- `--color-line`: `#2b2e38` (Structural borders)
+- `--color-line-gold`: `#c8a265` (Technical blueprint gold highlight)
+- `--color-ink`: `#f0f2f5` (High-contrast typography)
+- `--color-muted`: `#8e94a0` (Technical callout labels)
+- `--color-accent-amber`: `#d4af37` (Accent glow & hover states)
 
-### Архитектура
-- **Один сквозной `<Canvas>`** фиксирован на фоне (`fixed inset-0`), контент секций скроллится поверх. Это даёт «сквозные 3D-элементы по секциям» бесшовно и производительно.
-- **Сеть-граф:** ~110 узлов (точки) в объёме, рёбра между близкими узлами (`LineSegments`). Узлы дрейфуют, рёбра пересчитываются каждый кадр. Материалы — **additive-блендинг** в электрик-фиолетовом → неоновое свечение на чёрном фоне.
-- **Реакция на курсор:** граф наклоняется к позиции указателя (параллакс) + медленное авто-вращение.
-- **Scroll-driven (сквозь секции):** прогресс скролла управляет вращением, смещением и масштабом графа — он трансформируется по мере прохода секций.
-
-### Производительность / fallback
-- Lazy-load 3D, `dpr` ограничен, на мобильных — упрощённая геометрия/меньше частиц.
-- `prefers-reduced-motion` и слабые устройства → статичный градиентный кадр.
-
----
-
-## 6. Структура сайта (7 экранов + шапка/подвал)
-
-**Шапка (fixed, overlay):** логотип слева; навигация (О нас · Что мы делаем · Решения · Кейсы · Клиенты · Контакты); переключатель **RU/EN**; кнопка «Связаться». Прозрачная на hero → matte/blur при скролле. Моб. — бургер-меню.
-
-1. **Hero** — 3D-агент, заголовок чуть левее центра.
-2. **О нас** — позиционирование + метрики.
-3. **Что мы делаем** — услуги + компактная полоса «Как мы работаем» (процесс).
-4. **Решения** — продукты/сценарии применения.
-5. **Кейсы** — карточки кейсов (плейсхолдеры).
-6. **Клиенты** — лого-маркиза «Нам доверяют».
-7. **Контакты** — CTA + форма обратной связи (email).
-
-**Подвал:** логотип, тег-строка, навигация-якоря, переключатель языка, контактный email, соцссылки (плейсхолдеры), `© 2026 Vels Industries`.
+### Typography
+- **Technical & Display**: `JetBrains Mono` (`--font-jetbrains`)
+- **Body & Neutral UI**: `Inter` (`--font-inter`)
 
 ---
 
-## 7. Контент (плейсхолдеры, реальный заменим позже)
+## 4. 3D Procedural Engineering Architecture (`components/three/`)
 
-> Реальных данных нет — ставлю реалистичные плейсхолдеры, помеченные для замены. Весь текст хранится в словарях RU/EN.
+### 1. `JewelryScene.tsx`
+- Encapsulates `@react-three/fiber` `<Canvas>` with customized studio lighting:
+  - Ambient base lighting (`#cfd6e6`)
+  - Overhead key directional light
+  - Front-fill light (`#cbd5e1`)
+  - Rim / back highlight for chamfered titanium edges (`#94a3b8`)
+  - Warm accent kickers (`#e2d2a4`)
 
-### Hero (копирайт — предлагаю; основной вариант + альтернативы)
-- **Бейдж:** `AI · AUTOMATION` / «Автономные AI-агенты»
-- **H1 (основной, выбран):**
-  - RU: **«AI-агенты, которые работают за вас»**
-  - EN: **«AI agents that work for you»**
-  - *Альтернативы:* «Внедряем AI-агентов в ваш бизнес» · «Бизнес на автопилоте с AI-агентами»
-- **Подзаголовок:**
-  - RU: «Vels Industries проектирует, обучает и интегрирует автономных AI-агентов, которые автоматизируют рутину и масштабируют процессы.»
-  - EN: «Vels Industries designs, trains and integrates autonomous AI agents that automate routine and scale your operations.»
-- **CTA:** «Обсудить проект» (→ форма) · «Смотреть кейсы» (→ кейсы)
-- Индикатор скролла внизу.
-
-### О нас
-- Текст: «Vels Industries — команда инженеров и ML-специалистов. Проектируем AI-агентов под задачи бизнеса: от прототипа до промышленного внедрения.»
-- **Метрики (плейсхолдеры):** `50+` внедрённых агентов · `12` отраслей · `98%` удержание клиентов · `×3` рост эффективности.
-
-### Что мы делаем (услуги)
-1. Разработка AI-агентов под задачу
-2. Интеграция в существующие процессы и системы
-3. Обучение на ваших данных
-4. Поддержка, мониторинг и развитие
-
-**Процесс (полоса):** `01 Аудит → 02 Прототип → 03 Внедрение → 04 Развитие`
-
-### Решения (сценарии)
-- Поддержка клиентов 24/7 · Автоматизация продаж · Обработка документов · Внутренние копилоты/ассистенты · Аналитика и отчётность
-
-### Кейсы (плейсхолдеры)
-- **Финтех:** AI-агент поддержки → −40% нагрузки на саппорт
-- **E-commerce:** агент-продавец → +25% конверсии
-- **Логистика:** документ-агент → обработка в ×5 быстрее
-
-### Клиенты
-- Маркиза с лого (плейсхолдеры, нейтральные названия) + строка «Нам доверяют».
-
-### Контакты / Форма
-- Заголовок: «Готовы внедрить AI-агента?» / «Ready to deploy your AI agent?»
-- Поля: **Имя**, **Email**, Компания (необяз.), **Сообщение/Задача**.
-- Доп. контакт: email-ссылка (плейсхолдер `hello@vels.industries`).
+### 2. `JewelryRing.tsx`
+- **Procedural Canvas Textures & Bump Maps**:
+  - Anisotropic 1024x1024 lathe brush normal map
+  - Dual laser-engraved top plates ("NO.rr 312" on left, "PATCH v1.13" on right) with 3D recessed bump depth
+  - Inner shank laser engraving ("NO.rr 312 // TI-6AL-4V // MOD. R1 V3 // SPEC NO. 0312-ARCH")
+- **Geometric Construction**:
+  - Dual-rail U-shaped shank with central groove inlay
+  - Inverted trapezoid towers with truss window cutouts
+  - Dual upper tension suspension cross-rods
+  - Multi-strand 316L spring steel wire pack with catenary sag
+  - M1.6 micro-Torx fastener hardware
+- **Dynamic Interactions**:
+  - Pointer tracking with smooth easing and velocity inertia
+  - Exploded view translation offsets for modular inspection
+  - Auto-rotate toggle with seamless frame synchronization
 
 ---
 
-## 8. Двуязычность (RU/EN)
-- Лёгкий подход: словари `ru` / `en` + React-контекст + `localStorage` + переключатель в шапке/подвале. Без locale-маршрутизации (один лендинг). Дефолт — RU.
+## 5. Modals & Information Architecture (`components/modals/`)
+
+1. **`BuildSpecModal.tsx`**:
+   - Technical blueprint with alloy breakdown (Grade 5 Titanium Ti-6Al-4V).
+   - Size configurator (US 7–12 / 17.3mm–21.4mm / EU 54–67).
+   - Finish configurator (Raw Brushed Titanium, DLC Obsidian Black, Thermal Oxide Indigo).
+   - 3D exploded view trigger & batch allocation reservation flow.
+2. **`ReleasesModal.tsx`**:
+   - Release catalog: `MOD. R1 V3` (Active batch), `MOD. R1 V2` (Archived), `MOD. B2` (Upcoming), `MOD. P1` (Prototyping).
+3. **`ProcessModal.tsx`**:
+   - 5-step industrial manufacturing breakdown (FEA optimization, 5-axis CNC milling, Wire-EDM spring core, 400-grit directional satin hand-brushing, UV laser micro-engraving).
+4. **`ContactModal.tsx`**:
+   - Direct studio inquiries form connected to `/api/contact`.
+   - Category selection, Zod validation, error handling, and confirmation view.
 
 ---
 
-## 9. Форма обратной связи + Email
-- `react-hook-form` + `zod` (валидация), состояния loading/success/error.
-- Серверный route `POST /api/contact` → отправка письма через **Resend**.
-- **Переменные окружения** (в `.env.local`, шаблон в `.env.example`):
-  - `RESEND_API_KEY` — ключ Resend
-  - `CONTACT_TO_EMAIL` — куда приходят заявки
-  - `CONTACT_FROM_EMAIL` — верифицированный отправитель
-- Анти-спам: honeypot-поле + базовый rate-limit.
-- **Понадобится от тебя (на этапе формы):** почта-получатель и ключ Resend. Пока кладу в `.env.example`; форма с фронта будет работать сразу, реальная отправка — после ключа.
+## 6. Verification & Regression Testing
 
----
-
-## 10. Структура проекта
-```
-d:\claude-site\
-  app/
-    layout.tsx            # шрифты, метаданные, провайдеры
-    page.tsx              # сборка секций
-    globals.css           # токены, базовые стили
-    api/contact/route.ts  # отправка email (Resend)
-  components/
-    layout/   Header.tsx  Footer.tsx
-    sections/ Hero  About  Services  Solutions  Cases  Clients  Contact
-    three/    Scene.tsx (canvas)  AgentParticle.tsx (+shaders)  hooks
-    ui/       Button  Badge  SectionHeading  LanguageToggle  Container
-    Logo.tsx
-  lib/
-    i18n/     dictionaries (ru/en), provider, useT()
-    content/  данные секций (bilingual)
-    validation.ts (zod)
-  shaders/    vertex/fragment (GLSL)
-  public/     лого-плейсхолдеры, og-image, favicon
-  .env.example  package.json  tsconfig  tailwind/postcss  next.config
-```
-
----
-
-## 11. План реализации (этапы)
-1. **Каркас:** Next.js + зависимости + Tailwind v4 + шрифты + токены + Header/Footer + i18n-провайдер + Logo.
-2. **3D-ядро:** сквозной Canvas + морфирующий агент с искажением от мыши; fallback и reduced-motion.
-3. **Секции:** контент всех 7 экранов + раскрытие (Framer Motion) + scroll-driven 3D по секциям (GSAP ScrollTrigger).
-4. **Форма:** react-hook-form + zod + API-роут (Resend) + состояния.
-5. **Полировка:** адаптив, бургер-меню, a11y, производительность, SEO/OG/favicon, финальный QA.
-
----
-
-## 12. Что понадобится от тебя позже
-- Реальный контент: тексты «О нас», кейсы, названия/логотипы клиентов, метрики, контакты.
-- Для формы: `RESEND_API_KEY` + почта-получатель.
-- (Опц.) деплой на Vercel — могу настроить.
-
----
-
-## 13. Решения, принятые мной (подтверди или поправь)
-- Шрифты: **Manrope + Inter + JetBrains Mono**.
-- Тема: **тёмная** (чёрный `#08080B`, белый текст). Акцент: **электрик-фиолетовый `#8B5CF6`** (+ индиго для свечения 3D).
-- 3D: **один сквозной Canvas**, сеть частиц/линий (нейросеть); параллакс к курсору + трансформация по скроллу.
-- i18n: **словари + контекст**, без locale-роутинга.
-- Email: **Resend** через API-роут.
-- Hero H1: **«AI-агенты, которые работают за вас»** (выбрано; альтернативы в §7).
-- Доп. блоки: процесс «Как мы работаем» (внутри «Что мы делаем»), метрики (внутри «О нас»), CTA (в «Контактах»). Итого ровно 7 экранов.
+The test suite (`test-regression.mjs`) validates:
+1. WebGL canvas and Three.js initialization without console errors.
+2. HUD toolbar toggles (Zoom, Exploded view, Auto-Rotate, Fullscreen).
+3. 360° orbital drag rotation on 3D canvas.
+4. All 4 modals opening, interacting, keyboard Escape closing, and form transmission.
+5. Production build (`npm run build`) with zero type or bundling errors.

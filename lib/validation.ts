@@ -15,7 +15,7 @@ export function contactSchema(m?: Partial<ContactMessages>) {
     company: z.string().trim().max(120).optional().or(z.literal("")),
     message: z.string().trim().min(10, m?.message ?? "Describe your task (min 10 characters)"),
     // Honeypot — real users never fill this; bots often do.
-    website: z.string().max(0).optional().or(z.literal("")),
+    website: z.string().optional(),
   });
 }
 

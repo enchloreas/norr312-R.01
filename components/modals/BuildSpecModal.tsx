@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X, Check, ShieldCheck, Cpu, Layers, Sparkles, Sliders } from "lucide-react";
 
@@ -23,6 +23,15 @@ export function BuildSpecModal({
   const [reservationName, setReservationName] = useState("");
   const [reservationEmail, setReservationEmail] = useState("");
   const [reservationStep, setReservationStep] = useState<"form" | "confirmed">("form");
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
 
   const sizes = [
     { label: "US 7", mm: "17.3mm", eu: "54" },
